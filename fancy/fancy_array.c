@@ -10,13 +10,25 @@ struct fancy_array{
     fancy_element * head;
     unsigned long int size;
 };
-
+/**
+ * @brief creates an array and a reference to it
+ * 
+ * @return fancy_array* a pointer to the structure created contains all the data to hold the array
+ */
 fancy_array * fancy_create(){
     fancy_array * ar = (fancy_array *) malloc(sizeof(fancy_array));
     ar->head = NULL;
     ar->size = 0;
     return ar;
 }
+/**
+ * @brief adds an element to the end of the array
+ * 
+ * @param array : array to add to it
+ * @param data : a void poitner to thedata that can be casted to any type
+ * @param size_bytes : number of size bytes of the data passed in
+ * @return int : 1 if succeeded else 0
+ */
 int fancy_add(fancy_array * array, void * data, size_t size_bytes){
 
     if(array->head == NULL && array->size == 0){
@@ -56,4 +68,11 @@ void fancy_dump(fancy_array * array){
         void *  p = (array->head+i)->data;
         printf("index: %d, value: %p\n", i, p);
     }
+}
+
+void * fancy_get(fancy_array * array, unsigned long int index){
+    if(index >= array->size){
+        return NULL;
+    }
+    return array->head[index].data;
 }
